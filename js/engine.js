@@ -48,6 +48,10 @@ let Engine = (function(global) {
             enemy.update(dt);
             enemy.renderVisible()
         })
+        allGems.forEach( gem => {
+            gem.update(dt);
+            gem.render()
+        })
         player.render();//renderEntities();
         lastTime = now;
         win.requestAnimationFrame(main) //browser draws slides
@@ -62,6 +66,13 @@ let Engine = (function(global) {
         enemy3r.y = map.line3_1;
         enemy3r2.y = map.line3_2;
         enemy3l.y = map.line3_2;
+
+        gemBlue1.y = map.line1;
+        gemBlue2.y = map.line3_1;
+        gemGreen1.y = map.line3_2;
+        gemGreen2.y = map.line2_2;
+        gemOrange.y = map.line3_2;
+        heart.y = map.line2_2;
     }
 
     function appearance() {
