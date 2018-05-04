@@ -232,7 +232,6 @@ class Enemy {
     }
 
     moveUp() {
-        //console.log('move up - ' + )
         this.y += 83;
     }
     
@@ -276,11 +275,27 @@ class Gems {
         this.x = 0,
         this.y = 0
     }
-    update() {
+    
+    update(dt) {
 
     }
+
     render() {
         ctx.drawImage(Resources.get(this.gem), this.x, this.y)
+    }
+
+    renderVisible() {
+        if( this.y > -40 && this.y < (canvas.height - 200)){
+            this.render()
+        }
+    }
+
+    moveUp() {
+        this.y += 83;
+    }
+    
+    moveDown() {
+        this.y  -= 83;
     }
 }
 
@@ -291,7 +306,7 @@ class GemBlue extends Gems {
     }
 }
 
-class GemGreen extends Gems {
+class GemGreen extends Gems { 
     constructor() {
         super();
         this.gem = entities.gemGreen
@@ -321,7 +336,7 @@ const
     enemy3r = new RightEnemy,
     enemy3r2 = new RightEnemy,
     enemy3l = new LeftEnemy,
-    
+
     gemBlue1 = new GemBlue,
     gemBlue2 = new GemBlue,
     gemGreen1 = new GemGreen,
@@ -329,7 +344,7 @@ const
     gemOrange = new GemOrange,
     heart = new Heart;
 
-let allEnemies = [
+const allEnemies = [
     enemy1r,
     enemy1l,
     enemy2r,
@@ -341,3 +356,12 @@ let allEnemies = [
     ];
 
 let visibleEnemies = [];
+
+const allGems = [
+    gemBlue1,
+    gemBlue2,
+    gemGreen1,
+    gemGreen2,
+    gemOrange,
+    heart
+    ]
