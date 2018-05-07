@@ -46,7 +46,8 @@
             /* This URL has not been previously loaded and is not present
              * within our cache; we'll need to load this image.
              */
-            var img = new Image();
+            const img = new Image()
+            img.onerror = throwError;
             img.onload = function() {
                 /* Once our image has properly loaded, add it to our cache
                  * so that we can simply return this image if the developer
@@ -68,6 +69,12 @@
              */
             resourceCache[url] = false;
             img.src = url;
+
+            function throwError() {
+                const err = new ReferenceError( 'unable to upload the image because of wrong name or location');
+                err.name = 'Wrong image name/location';
+                throw err;
+            }
         }
     }
 
