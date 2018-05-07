@@ -1,3 +1,60 @@
+html {
+	width: 100%;
+	background: linear-gradient(#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F);
+}
+
 body {
     text-align: center;
+    width: 505px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#background {
+	width: 100%;
+	height:100%;
+
+}
+
+#start_game {
+	width: 200px;
+	height: 70px;
+	background-color: #fff;
+	color: #000;
+	position: fixed;
+	margin-left: 150px;
+	margin-top: 300px;
+	font-size: 2em;
+}
+.hidden {
+	display: none;
+}
+.shown {
+	display: block;
+}
+.referencial {
+	opacity:0.3;
+	width: 50px;
+	height: 50px;
+	color: #fff;
+	background-color: #000;
+	position: absolute;
+}
+
+.but1 {
+	top: 450px;
+	left: 100px;
+}
+.but2 {
+	top: 500px;
+	left: 50px;
+}
+.but3 {
+	top: 500px;
+	left: 150px;
+}
+.but4 {
+	top: 550px;
+	left: 100px;
 }
