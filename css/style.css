@@ -1,60 +1,118 @@
 html {
 	width: 100%;
 	background: linear-gradient(#E5FCC2, #9DE0AD, #45ADA8, #547980, #594F4F);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 body {
     text-align: center;
     width: 505px;
-    height: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 0 auto;
 }
 
-#background {
-	width: 100%;
-	height:100%;
-
+.hidden {
+	display: none;
 }
 
-#start_game {
+.shown {
+	display: block;
+}
+
+main {
+	width: 505px;
+	height: 580px;
+	background-color: #fff;
+	border-radius: 5px;
+}
+
+h1,
+#result_text {
+	font-family: 'Russo One', sans-serif;
+	color: #505050;
+	padding-top: 30px;
+	margin-bottom: 0;
+}
+
+.intro,
+.notation {
+	font-family: 'Dosis', sans-serif;
+	font-size: 1.3em;
+	display: block;
+}
+
+.notation {
+	margin: 10px auto;
+	font-size: 1.2em;
+}
+
+#start_game,
+#restart_game {
 	width: 200px;
 	height: 70px;
 	background-color: #fff;
 	color: #000;
+	font-size: 1.7em;
+	background: none;
+	border-radius: 5px;
+}
+
+dialog {
+	width: 300px;
+	height: 230px;
 	position: fixed;
-	margin-left: 150px;
-	margin-top: 300px;
-	font-size: 2em;
+	top: 200px;
+	border: none;
+	border-radius: 5px;
+	background-color: #f1f1f1;
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.5)
 }
-.hidden {
-	display: none;
+
+#restart_game {
+	height: 100px;
+	background-color: #fff;
 }
-.shown {
+
+#result_text {
 	display: block;
+	font-size: 1.7em;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 0;
 }
-.referencial {
+
+.duplicating {
 	opacity:0.3;
 	width: 50px;
 	height: 50px;
 	color: #fff;
 	background-color: #000;
-	position: absolute;
+}
+
+.but1,
+.but2,
+.but3,
+.but4 {
+	border-radius: 5px;
+	position: fixed;
 }
 
 .but1 {
-	top: 450px;
-	left: 100px;
+	top: 400px;
+	margin-left: -25px;
 }
+
 .but2 {
-	top: 500px;
-	left: 50px;
+	top: 450px;
+	margin-left: -75px;
 }
+
 .but3 {
-	top: 500px;
-	left: 150px;
+	top: 450px;
+	margin-left: 25px;
 }
+
 .but4 {
-	top: 550px;
-	left: 100px;
+	top: 500px;
+	margin-left: -25px;
 }
