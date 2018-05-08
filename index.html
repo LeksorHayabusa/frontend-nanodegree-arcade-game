@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
     <meta property="og:type" content="game app">
     <meta property="og:title" content="Arcade game">
     <meta property="og:description" content="My first web appliction built with Object Oriented Programming">
@@ -13,18 +15,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 <body>
-	<div id="button_set">
-		<button class="referencial but1" id="arrowUp"><i class="material-icons">keyboard_arrow_up</i></button>
-		<button class="referencial but2" id="arrowLeft"><i class="material-icons">keyboard_arrow_left</i></button>
-		<button class="referencial but3" id="arrowRight"><i class="material-icons">keyboard_arrow_right</i></button>
-		<button class="referencial but4" id="arrowDown"><i class="material-icons">keyboard_arrow_down</i></button>
-	</div>
-	<div id="background">
-		<h1>Welcome in Arcade game</h1>
-		<span class="intro">collect the gems and keep away from the bugs</span>
-		<span class="notation">Use keyboard to move your char</span>
-		<button disabled="disabled" id="start_game">Start game</button>
-	</div>
+    <main>
+        <h1>Welcome to Arcade game</h1>
+        <span class="intro">Collect the gems and keep away from the bugs.</span>
+        <img src="images/main-img.png" alt="img representing game characters, enemies and gems">
+        <span class="notation">Use keyboard arrows to move your char or just tap the buttons on the touch screen. You finish the game when all gems are picked up and the char is brought to the start position back.</span>
+        <button disabled="disabled" id="start_game">Start game</button>
+    </main>
+    <div id="button_set" class="hidden">
+        <button class="duplicating but1" id="arrowUp" disabled="disabled"><i class="material-icons">keyboard_arrow_up</i></button>
+        <button class="duplicating but2" id="arrowLeft" disabled="disabled"><i class="material-icons">keyboard_arrow_left</i></button>
+        <button class="duplicating but3" id="arrowRight" disabled="disabled"><i class="material-icons">keyboard_arrow_right</i></button>
+        <button class="duplicating but4" id="arrowDown" disabled="disabled"><i class="material-icons">keyboard_arrow_down</i></button>
+    </div>
+    <dialog id='game_over'><h2 id="result_text">What a pity! You failed.</h2>
+        <button id="restart_game">Restart Game <i class="material-icons">repeat</i></button> 
+    </dialog>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
