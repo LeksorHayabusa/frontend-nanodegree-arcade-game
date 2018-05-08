@@ -142,8 +142,10 @@ class Entities {
                 player.entity = entities.charDeadBoy;
                 player.isCollapse = true;
                 blink(player, 500);
-                let heartLength = allSmallHearts.length-1;
-                allSmallHearts[heartLength].x *= -1;
+                if(window.heartCounter >= 0){
+                    allSmallHearts[window.heartCounter].x *= -1;
+                    window.heartCounter--;
+                }
             }
 
             function blink(entity,speed) {
@@ -191,7 +193,8 @@ class Entities {
                 let removed = arr.splice(i,1);
                 switch (true) {
                     case (removed[0] === heart ): {
-                        
+                        window.heartCounter++;
+                        allSmallHearts[window.heartCounter].x *= -1;
                         break;
                     }
                     case (removed[0] === gemBlue1 ||  removed[0] === gemBlue2 ): {
@@ -223,6 +226,7 @@ class Player extends Entity {
     constructor(){
         super()
         this.x = 202,
+        this.startYPosition = -10 + 415,
         this.y = -10 + 415,// -20 - to place the char in the middle of the cell
         this.height = 76,
         this.width = 66,
