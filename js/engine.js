@@ -10,24 +10,31 @@ const Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         startButton = document.getElementById('start_game'),
-        buttonSet = document.querySelector('#button_set button'),
-        background = document.getElementById('background');
+        buttonSet = document.getElementById('button_set'),
+        buttons = document.getElementsByClassName('duplicating'),
+        mainTag = document.getElementsByTagName('main')[0],
+        gameOverDialog = document.getElementById('game_over'),
+        restartBut = document.getElementById('restart_game'),
+        resultText = document.getElementById('result_text');
     let lastTime,
         isVertPositionChanged,
         gemBlueCounter = 0,
         gemGreenCounter = 0,
-        gemOrangeCounter = 0;
+        gemOrangeCounter = 0,
+        heartCounter = 2;
     window.ctx = ctx;
     window.canvas = canvas;
     window.isVertPositionChanged = isVertPositionChanged;
     window.gemBlueCounter = gemBlueCounter;
     window.gemGreenCounter = gemGreenCounter;
     window.gemOrangeCounter = gemOrangeCounter;
+    window.heartCounter = heartCounter;
 
     canvas.width = 505;
     canvas.height = 600;
+    //const canvasTag = document.getElementsByTagName('canvas');
+    canvas.classList.add('hidden');
     doc.body.appendChild(canvas);
-
 
     Resources.load(entities.load());
     Resources.onReady(init)
@@ -39,8 +46,15 @@ const Engine = (function(global) {
     }
 
     function started() {
-        //reset() не используется
-        background.classList.add('hidden')
+        gemBlueCounter = 0;
+        gemGreenCounter = 0;
+        gemOrangeCounter = 0;
+        heartCounter = 2;
+        gameOverDialog.classList.remove('shown');
+        canvas.classList.remove('hidden');
+        Array.prototype.forEach.call(buttons, (buts, i) => { buttons[i].removeAttribute('disabled')})
+        mainTag.classList.add('hidden');
+        buttonSet.classList.remove('hidden');
         lastTime = Date.now();
         document.addEventListener('keyup', e => {
             const allowedKeys = {
@@ -52,16 +66,26 @@ const Engine = (function(global) {
             !player.isCollapse ? player.handleInput(allowedKeys[e.keyCode]) : '';
         });
         buttonSet.addEventListener('click', e => {
-            console.log('e key - ' + e.target.getAttribute('id'))
+            e.stopPropagation();
+            let target;
+            if(e.target.nodeName == 'BUTTON'){
+                target = e.target.getAttribute('id');
+            } else if (e.target.nodeName == 'I'){
+                target = e.target.parentNode.getAttribute('id');
+            }
             const allowedKeys = {
                 arrowLeft: 'left',
                 arrowUp: 'up',
                 arrowRight: 'right',
                 arrowDown: 'down'
             };
-            //!player.isCollapse ? player.handleInput(allowedKeys[e.keyCode]) : '';
+            !player.isCollapse ? player.handleInput(allowedKeys[target]) : '';
         });
         initEnities();
+        smallHeart1.x = map.col0;
+        smallHeart2.x = map.col1;
+        smallHeart3.x = map.col2;
+        smallHeart4.x = -map.col3;
         allEnemies.forEach( enemy => {
             enemy.randomizeLocation();
             enemy.randomizeSpeed();
@@ -116,7 +140,7 @@ const Engine = (function(global) {
         entities.pickUp()
         allGems.forEach( gem => { gem.renderVisible() })
         player.render()
-        appearance()
+        decorative()
         textGem(window.gemBlueCounter, 2, map.col2)
         textGem(window.gemGreenCounter, 2, map.col8)
         textGem(window.gemOrangeCounter, 1, map.col14)
@@ -125,6 +149,12 @@ const Engine = (function(global) {
         allSmallGems.forEach( g => { g.render() })
         lastTime = now;
         (player.isBlinkFinished) ? restartGame() : '';
+        if (window.gemBlueCounter === 2 && window.gemGreenCounter === 2 && 
+            window.gemOrangeCounter === 1 && player.y === player.startYPosition){
+            gameOver(true)
+        } else if( window.heartCounter < 0) {
+            gameOver(false)
+        }
         win.requestAnimationFrame(main) //browser draws slides
     }
 
@@ -149,10 +179,6 @@ const Engine = (function(global) {
         smallHeartWhite2.x = map.col1;
         smallHeartWhite3.x = map.col2;
         smallHeartWhite4.x = -map.col3;
-        smallHeart1.x = map.col0;
-        smallHeart2.x = map.col1;
-        smallHeart3.x = map.col2;
-        smallHeart4.x = -map.col3;
         allSmallHearts.forEach( h => h.y = map.heartLine )
         allSmallWhiteHearts.forEach( h => h.y = map.heartLine )
         allSmallGems.forEach( g => g.y = map.gemLine )
@@ -161,9 +187,9 @@ const Engine = (function(global) {
         smallGemOrange.x = map.col13;
     }
 
-    function appearance() {
+    function decorative() {
         ctx.fillStyle = '#438b49';
-        ctx.fillRect(0,551,canvas.width,40);
+        ctx.fillRect(1,551,canvas.width-2,40);
     }
 
     function textGem(counter, number, mapCol) {
@@ -171,6 +197,16 @@ const Engine = (function(global) {
         ctx.font = '30px Arial';
         ctx.fillText( counter + ' / ' + number, mapCol, map.gemTextLine);
         ctx.stroke()
+    }
+
+    function gameOver(state) {
+        if(state){
+            resultText.innerHTML = 'Congratulation! You won!';
+        } else {
+            resultText.innerHTML = 'What a pity! You failed.';
+        }
+        gameOverDialog.classList.add('shown')
+        restartBut.addEventListener('click', started);
     }
 
 })(this);
